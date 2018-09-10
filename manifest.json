@@ -6,7 +6,7 @@
     "manifest_version": 2,
 
     "icons": {
-        "64": "ucsd.svg"
+        "64": "icons/ucsd.svg"
     },
 
     "permissions": [
@@ -15,7 +15,7 @@
 
     "browser_action": {
         "browser_style": true,
-        "default_icon": "ucsd.svg"
+        "default_icon": "icons/ucsd.svg"
     },
 
     "background": {
