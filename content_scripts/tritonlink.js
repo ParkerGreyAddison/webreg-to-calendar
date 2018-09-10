@@ -12,8 +12,6 @@ function begin(message) {
 
     console.log(schedule);
 
-    alert("You're schedule has been scraped!");
-
     // Send schedule back to background.js to be converted
     browser.runtime.sendMessage({schedule: schedule});
 }

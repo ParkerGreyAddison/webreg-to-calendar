@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <style>
+        #content {
+            padding: 1em;
+
+            transition: all 1s;
+            -moz-transition: all 1s;
+            -webkit-transition: all 1s;
+
+            opacity: 0;
+        }
+
+        #loadingBar {
+            margin: 0px auto;
+            padding: 0;
+            position: relative;
+            top: calc(50vh - 1.5em);
+            width: 80%;
+            height: 2em;
+            background-color: gray;
+            text-align: center;
+        }
+
+        #loadingText {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            height: 0;
+            margin: 0;
+            line-height: 200%;
+        }
+
+        #loadingProgress {
+            width: 1%;
+            height: 2em;
+            background-color: darkblue;
+        }
+
+        #download {
+            padding: 1em;
+            margin: 1em;
+        }
+    </style>
+
+    <div id="loadingBar">
+        <p id="loadingText">parsing schedule</p>
+        <div id="loadingProgress"></div>
+    </div>
+
+    <div id="content">
+        <p><b style="color: darkblue;">Your UCSD course schedule has been converted into a calendar <code>(.ics)</code> file!</b></p>
+        <p><b style="color: darkblue;">You can click the button below to download the file.</b></p>
+        <div style="text-align: center;">
+            <button id="download">Download Calendar</button>
+        </div>
+    </div>
+
+
+
+    <script src="download.js"></script>
+</body>
+
+</html>
