@@ -8,12 +8,14 @@ function begin(message) {
     }
 
     // Do the scrape!
-
     let schedule = scrapeSchedule();
 
     console.log(schedule);
 
     alert("You're schedule has been scraped!");
+
+    // Send schedule back to background.js to be converted
+    browser.runtime.sendMessage({schedule: schedule});
 }
 
 
@@ -76,18 +78,10 @@ function scrapeSchedule() {
                 }
 
             }
-
         });
     }
 
     return courses;
-
-
-    // Send to conversion js
-
-
-
-
 }
 
 function initDaysMap(daysRow) {
