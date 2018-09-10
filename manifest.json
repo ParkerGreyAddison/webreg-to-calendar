@@ -6,7 +6,7 @@
     "manifest_version": 2,
 
     "icons": {
-        
+        "64": "ucsd.svg"
     },
 
     "permissions": [
@@ -14,20 +14,22 @@
     ],
 
     "browser_action": {
-        "default_icon": "",
-        "default_title": "Webreg to Calendar",
-        "default_popup": "popup/start-conversion.html",
-        "browser_style": true
+        "browser_style": true,
+        "default_icon": "ucsd.svg"
+    },
+
+    "background": {
+        "scripts": ["background.js"]
     },
 
     "content_scripts": [
         {
-            "matches": ["*://act.ucsd.edu/myTritonlink*"],
-            "js": ["convert-from-tritonlink.js"]
+            "matches": ["*://act.ucsd.edu/myTritonlink20/display.htm"],
+            "js": ["content_scripts/tritonlink.js"]
         },
         {
             "matches": ["*://act.ucsd.edu/webreg2/main*"],
-            "js": ["convert-from-webreg.js"]
+            "js": ["/content_scripts/webreg.js"]
         }
     ]
 }

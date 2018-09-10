@@ -4,11 +4,11 @@ html, body {
     align-items: center;
 }
 
-.intro-text {
+#intro-text {
     text-align: center;
 }
 
-.start-conversion {
+#start-conversion {
     align-self: center;
     margin: 2em auto;
     width: 12em;
@@ -25,11 +25,11 @@ html, body {
     border-style: none;
 }
 
-.start-conversion:hover {
+#start-conversion:hover {
     background-color: #345678;
 }
 
-.hidden {
+#error {
     display: none;
     padding: 1em;
     color: red;
