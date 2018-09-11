@@ -9,22 +9,17 @@ browser.browserAction.onClicked.addListener((tab) => {
     if (tab.url.includes("://act.ucsd.edu/myTritonlink20/display.htm")) {
         // Send to tritonlink.js
         browser.tabs.sendMessage(tabId, {
-            "start": true
+            start: true
         });
         newPopup(tabId, "popup/download.html");
     } else if (tab.url.includes("://act.ucsd.edu/webreg2/main")) {
         // Send to webreg.js
         browser.tabs.sendMessage(tabId, {
-            "start": true
+            start: true
         });
         newPopup(tabId, "popup/download.html");
     } else {
         newPopup(tabId, "popup/error.html");
-        // browser.browserAction.setPopup({
-        //     tabId: tabId,
-        //     popup: browser.runtime.getURL("popup/error.html")
-        // });
-        // browser.browserAction.openPopup();
         browser.browserAction.disable(tabId);
     }
 });
@@ -103,8 +98,7 @@ function convertToCalendarString(schedule) {
         calendarLines.push(dtendString);
 
         // Adding recurrence rule
-        let daysbyString = changeDayFormats(schedule[subject]["days"]);
-        let rruleString = `RRULE:FREQ=WEEKLY;INTERVAL=1;UNTIL=${instructionEndDate};BYDAY=${daysbyString}`;
+        let rruleString = `RRULE:FREQ=WEEKLY;INTERVAL=1;UNTIL=${instructionEndDate};BYDAY=${schedule[subject]["days"]}`;
 
         calendarLines.push(rruleString);
 
@@ -153,15 +147,6 @@ function downloadICS(calendarString) {
         url: URL.createObjectURL(file),
         filename: "UCSD_Course_Schedule.ics"
     });
-}
-
-function changeDayFormats(daysArray) {
-    // Take the first two letters and make them upper-case
-    const convertDayString = dayString => dayString.slice(0, 2).toUpperCase();
-
-    let formattedDaysArray = daysArray.map(convertDayString);
-
-    return formattedDaysArray.join(',');
 }
 
 function changeTimeFormat(timeString) {

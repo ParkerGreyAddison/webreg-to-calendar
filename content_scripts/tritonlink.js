@@ -13,7 +13,9 @@ function begin(message) {
     console.log(schedule);
 
     // Send schedule back to background.js to be converted
-    browser.runtime.sendMessage({schedule: schedule});
+    browser.runtime.sendMessage({
+        schedule: schedule
+    });
 }
 
 
@@ -29,7 +31,7 @@ function scrapeSchedule() {
 
     let daysMap = initDaysMap(daysRow);
 
-    let courses = {};
+    const courses = {};
 
 
     /* For each row of courses
@@ -46,37 +48,40 @@ function scrapeSchedule() {
             let courseText = column.textContent;
             let splitText = courseText.trim().split('\n').map(Function.prototype.call, String.prototype.trim);
 
-            // Parse the information
-            let courseTimeText = splitText[0];
-            let courseTime = courseTimeText.split(" - ");
-            let courseStartTime = courseTime[0];
-            let courseEndTime = courseTime[1];
-
             let courseSubject = splitText[1];
-
-            let courseLocation = splitText[2];
-
             let courseDay = daysMap[index];
 
-            let courseInfo = {
-                startTime: courseStartTime,
-                endTime: courseEndTime,
-                location: courseLocation,
-                days: [courseDay]
-            };
-
+            // Ignoring empty cells
             if (courseSubject) {
 
-                if (!courses[courseSubject]) {
-                    // If not yet added to courses, add course info
-                    courses[courseSubject] = courseInfo;
-                } else {
-                    // Otherwise, append the day to list of days
+                if (courses[courseSubject]) {
+                    // If already in courses, append the day to list of days
                     courses[courseSubject]["days"].push(courseDay);
-                }
+                } else {
+                    // Otherwise parse and add course info
+                    let courseTimeText = splitText[0];
+                    let courseTime = courseTimeText.split(" - ");
+                    let courseStartTime = courseTime[0];
+                    let courseEndTime = courseTime[1];
 
+                    let courseLocation = splitText[2];
+
+                    let courseInfo = {
+                        startTime: courseStartTime,
+                        endTime: courseEndTime,
+                        location: courseLocation,
+                        days: [courseDay]
+                    };
+
+                    courses[courseSubject] = courseInfo;
+                }
             }
         });
+    }
+
+    // Change the list of days into a standardized string MO,TU,WE,TH,FR
+    for (course in courses) {
+        courses[course]["days"] = changeDayFormats(courses[course]["days"]);
     }
 
     return courses;
@@ -95,4 +100,13 @@ function initDaysMap(daysRow) {
     });
 
     return daysMap;
+}
+
+function changeDayFormats(daysArray) {
+    // Take the first two letters and make them upper-case
+    const convertDayString = dayString => dayString.slice(0, 2).toUpperCase();
+
+    let formattedDaysArray = daysArray.map(convertDayString);
+
+    return formattedDaysArray.join(',');
 }

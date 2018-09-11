@@ -1,12 +1,12 @@
 {
     "name": "Webreg to Calendar",
-    "description": "Converts a UCSD course schedule to a calendar file that can be imported into Google Calendars.  Works from the WebReg main page and from the MyTritonlink main page.",
+    "description": "Converts a UCSD course schedule to a calendar file that can be imported into Google Calendars.  Works from the MyTritonlink main page and from the WebReg main page.",
     "version": "1.0",
     "homepage_url": "https://github.com/parkergreyaddison/webreg-to-calendar/tree/master",
     "manifest_version": 2,
 
     "icons": {
-        "64": "icons/ucsd.svg"
+        "64": "icons/ucsd-to-calendar.svg"
     },
 
     "permissions": [
@@ -16,7 +16,7 @@
 
     "browser_action": {
         "browser_style": true,
-        "default_icon": "icons/ucsd.svg"
+        "default_icon": "icons/ucsd-to-calendar.svg"
     },
 
     "background": {
