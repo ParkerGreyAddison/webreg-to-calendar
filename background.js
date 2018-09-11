@@ -13,9 +13,13 @@ browser.browserAction.onClicked.addListener((tab) => {
         });
         newPopup(tabId, "popup/download.html");
     } else if (tab.url.includes("://act.ucsd.edu/webreg2/main")) {
-        // Send to webreg.js
-        browser.tabs.sendMessage(tabId, {
-            start: true
+        browser.tabs.update(tabId, {
+            url: tab.url.slice(0, -1) + "0"
+        }).then(function() {
+            // Send to webreg.js
+            browser.tabs.sendMessage(tabId, {
+                start: true
+            });
         });
         newPopup(tabId, "popup/download.html");
     } else {
@@ -137,9 +141,7 @@ function convertToCalendarString(schedule) {
 }
 
 function downloadICS(calendarString) {
-    console.log(calendarString);
-
-    const encoder = new TextEncoder("utf-8");
+    // console.log(calendarString);
 
     const file = new Blob([calendarString], {type: "text", endings: "transparent"});
 
@@ -151,8 +153,8 @@ function downloadICS(calendarString) {
 
 function changeTimeFormat(timeString) {
     // Recieves time formatted as 'hh:MMpm'
-        // need to add leading zero if missing
-        // need to add 12 hrs if pm
+        // Adds 12 hrs if after 12pm
+        // Adds leading zero if missing
 
     const split = timeString.split(':');
     let hour = parseInt(split[0]);

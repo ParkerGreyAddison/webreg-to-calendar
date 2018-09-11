@@ -21,9 +21,6 @@ function scrapeSchedule() {
 
     const csTable = document.getElementById("list-id-table");
 
-    // The first row (class jqgfirstrow) is likely for formatting
-    const csRows = Array.from(csTable.rows).slice(1);
-
     const numRows = csTable.rows.length - 1;
 
     const courses = {};
@@ -47,7 +44,6 @@ function scrapeSchedule() {
             // For now skip Finals too
         let typeText = cells[3].innerText.trim();
         if (typeText === "FI" || !typeText ) {
-            console.log("skipped" + i);
             continue;
         }
 
@@ -56,7 +52,6 @@ function scrapeSchedule() {
         let daysText = cells[7].innerText.trim();
         // If the days have a date (one time occurrence) skip for now
         if (daysText.match(/\d/)) {
-            console.log("skipped" + i);
             continue;
         }
         let courseDays = changeDayFormats(daysText);
